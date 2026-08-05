@@ -43,8 +43,21 @@ libxrandr2
 libatspi2.0-0
 libxshmfence-dev
 EOF
-		# If stack is heroku-24, install libasound2t64
-		if [[ "$STACK" == "heroku-24" ]]; then
+
+		# If stack is heroku-26, install libgdk-pixbuf-2.0-0
+		if [[ "$STACK" == "heroku-26" ]]; then
+			cat << EOF >>$build_tmpdir/Aptfile
+libgdk-pixbuf-2.0-0
+EOF
+		# Otherwise, install libgdk-pixbuf2.0-0
+		else
+			cat << EOF >>$build_tmpdir/Aptfile
+libgdk-pixbuf2.0-0
+EOF
+		fi
+
+		# If stack is heroku-24 or heroku-26, install libasound2t64
+		if [[ "$STACK" == "heroku-24" || "$STACK" == "heroku-26" ]]; then
 			cat << EOF >>$build_tmpdir/Aptfile
 libasound2t64
 EOF
@@ -72,7 +85,6 @@ EOF
 	if [[ "$SUPPORTED_BROWSERS" == *"firefox"* || "$SUPPORTED_BROWSERS" == *"chromium"* ]]; then
 		cat << EOF >>$build_tmpdir/Aptfile
 # Needed by Firefox and Chromium
-libgdk-pixbuf2.0-0
 libcairo-gobject2
 libpulse0
 libusb-1.0-0
@@ -105,8 +117,13 @@ EOF
 libvpx9
 EOF
 	    ;;
+		"heroku-26")
+	    cat << EOF >>$build_tmpdir/Aptfile
+libvpx12
+EOF
+	    ;;
 	  *)
-	    error "STACK must be 'heroku-18', 'heroku-20', 'heroku-22', or 'heroku-24'"
+	    error "STACK must be 'heroku-18', 'heroku-20', 'heroku-22', 'heroku-24', or 'heroku-26'"
 	esac
 
 	local cache_tmpdir=$(mktemp -d)
