@@ -8,20 +8,6 @@ on:
     branches: [ master ]
 
 jobs:
-  test_ubuntu_18:
-    runs-on: ubuntu-18.04
-    steps:
-    - uses: actions/checkout@v5
-    - run: bash test/run.sh
-      env:
-        STACK: heroku-18 
-  test_ubuntu_20:
-    runs-on: ubuntu-20.04
-    steps:
-    - uses: actions/checkout@v5
-    - run: bash test/run.sh
-      env:
-        STACK: heroku-20 
   test_ubuntu_22:
     runs-on: ubuntu-22.04
     steps:
