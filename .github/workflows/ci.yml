@@ -1,21 +1,45 @@
+---
 name: CI
+
 on:
   push:
     branches: [ master ]
   pull_request:
     branches: [ master ]
+
 jobs:
   test_ubuntu_18:
     runs-on: ubuntu-18.04
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v5
     - run: bash test/run.sh
       env:
         STACK: heroku-18 
   test_ubuntu_20:
     runs-on: ubuntu-20.04
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v5
     - run: bash test/run.sh
       env:
         STACK: heroku-20 
+  test_ubuntu_22:
+    runs-on: ubuntu-22.04
+    steps:
+    - uses: actions/checkout@v5
+    - run: bash test/run.sh
+      env:
+        STACK: heroku-22
+  test_ubuntu_24:
+    runs-on: ubuntu-24.04
+    steps:
+    - uses: actions/checkout@v5
+    - run: bash test/run.sh
+      env:
+        STACK: heroku-24
+  test_ubuntu_26:
+    runs-on: ubuntu-26.04
+    steps:
+    - uses: actions/checkout@v5
+    - run: bash test/run.sh
+      env:
+        STACK: heroku-26
